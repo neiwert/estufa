@@ -1,67 +1,33 @@
 const express = require("express");
-const mongoose = require('mongoose');
+const bodyParser = require("body-parser");
+
 const app = express();
+app.use(bodyParser.json());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-mongoose.Promise = global.Promise;
+require("./routes")(app);
 
-const Safra = require('./models/safra');
-const {Lote, ItemLote} = require("./models/lotes");
-const { Cultura, VarianteCultura } = require("./models/culturas");
+app.listen(3000);
 
-
-mongoose.connect(
-    'mongodb+srv://agro-api:QWqw0eN5rgQUgXMq@agro.pqowe.mongodb.net/Agro',
-    {
-        useNewUrlParser: true
+const gracefulShutdown = (app) => {
+  process.on('SIGHUP', () => {
+    console.log('SIGHUP happened!')
+    app.close(() => {
+      console.log('server closed!')
+      process.exit(128 + 1)
     })
-
-// new VarianteCultura({
-//     name: "classe A",
-//     id_cultura: "5fef4670b1af9726cbac9819",
-//     description: "tamanho: 6-8cm",
-//     valor_kg: 2.5
-// })
-//     .save()
-//     .then(result => console.log("saved!:" + result))
-//     .catch(err => console.log(err))
-
-// new VarianteCultura({
-//     name: "classe B",
-//     id_cultura: "5fef4670b1af9726cbac9819",
-//     description: "tamanho: 6-8cm",
-//     valor_kg: 1.5
-// })
-//     .save()
-//     .then(result => console.log("saved!:" + result))
-//     .catch(err => console.log(err))
-
-// new Cultura({
-//     name: "Pepino"
-// })
-//     .save()
-//     .then(result => console.log("saved!:" + result))
-//     .catch(err => console.log(err))
-
-// new Safra({
-//     ref: "01/2021",
-// })
-//     .save()
-//     .then(result => console.log("saved!:" + result))
-//     .catch(err => console.log(err))
-
-new Lote({
-    id_cultura: "5fef4670b1af9726cbac9819",
-    items:[
-        {
-            id_variante_cultura:"assdasdasdad",
-            quantidade: 300,
-        }
-    ]
-})
-    .save()
-    .then(result => console.log("saved!:" + result))
-    .catch(err => console.log(err))
-
-app.listen(8080);
+  })
+  process.on('SIGINT', () => {
+    console.log('SIGINT happened!')
+    app.close(() => {
+      console.log('server closed!')
+      process.exit(128 + 2)
+    })
+  })
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM happened!')
+    app.close(() => {
+      console.log('server closed!')
+      process.exit(128 + 15)
+    })
+  })
+}
