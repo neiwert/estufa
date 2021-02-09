@@ -71,7 +71,7 @@ module.exports = database => {
   // })
 
   // Itens_lote.sync({
-   // alter:true // UPDATE TABLE
-    // force: true // DROP TABLE AND CREATE AGAIN
+  // alter:true // UPDATE TABLE
+  // force: true // DROP TABLE AND CREATE AGAIN
   // })
 };

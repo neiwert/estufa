@@ -6,7 +6,7 @@ const router = require("express").Router()
 const variantes = new Crud(Variantes)
 const culturas = new Crud(Culturas)
 
-router.get("/", async (req, res) => culturas.read(req, res))
+router.get("/", async (req, res) => culturas.read)
 
 router.post("/", async (req, res) => culturas.create(req, res))
 

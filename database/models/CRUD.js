@@ -40,7 +40,7 @@ class CRUD {
     } else {
       await this.model.update(set, { where }
       ).then(result => {
-        res.status(200).json(result)
+        res.status(200).json({ completed: (result == 1) })
       }).catch(error => {
         console.error(error)
         res.status(400).json(error)
@@ -61,7 +61,7 @@ class CRUD {
     } else {
       await this.model.destroy({ where }
       ).then(result => {
-        res.status(200).json(result)
+        res.status(200).json({ completed: (result == 1) })
       }).catch(error => {
         console.error(error)
         res.status(400).json(error)
