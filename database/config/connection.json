@@ -1,0 +1,9 @@
+{
+  "mysql": {
+    "dialect": "mysql",
+    "database": "Estufa",
+    "host": "localhost",
+    "username": "estufaAdmin",
+    "password": "administrator"
+  }
+}
