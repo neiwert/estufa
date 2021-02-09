@@ -16,4 +16,11 @@ const validate = async (db) => {
 
 validate(database)
 
+  // database.sync(
+  //   {
+  //     // force:true, //recreate all tables
+  //     // alter:true  //just apply alterations
+  //   }
+  // )
+
 module.exports = { database }
